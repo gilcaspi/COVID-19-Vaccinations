@@ -10,11 +10,13 @@ import matplotlib.pyplot as plt
 # import wpcc
 
 from data import PROJECT_RAW_DATA_FOLDER, PROJECT_ROOT_FOLDER, PROJECT_PROCESSED_DATA_FOLDER
+from data_processing.data_loaders.raw_data_loaders import DataLoaders
+from data_processing.preprocessing.vaccinations_pre_processing import VaccinationsPreProcessing
 from enums.EColor import EColor
 
 
 if __name__ == '__main__':
-    # REGULAR VNR GRAPH
+    # STATIC CONFIGURATIONS
     ####################################################################################################################
     full_graphs = False
     release = False
@@ -30,18 +32,24 @@ if __name__ == '__main__':
     color_scale = [EColor.GREEN,
                    EColor.ORANGE,
                    EColor.RED]
+    # END OF STATIC CONFIGURATIONS
+    ####################################################################################################################
 
+    # REGULAR VNR
+    ####################################################################################################################
     # Cases data - x
-    cities_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                    'corona_city_table_ver_0035.csv')
-    cities_df = pd.read_csv(cities_data_path, encoding='utf-8-sig')
+    cities_df = DataLoaders.get_cases_by_city()
 
     # Vaccination data - y
-    vaccination_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                         'vaccinated_by_age_2021_01_13.csv')
-    # pre-processing vaccination data
-    vaccination_df = pd.read_csv(vaccination_data_path, encoding='utf-8-sig')
+    vaccination_df = DataLoaders.get_vaccinations_by_age_and_city()
 
+    # Population data
+    pop_df = DataLoaders.get_population_age_groups_by_city()
+
+    # Social-Economic Rank data
+    rank_df = DataLoaders.get_socioeconomic_rank_by_city()
+
+    # pre-processing vaccination data
     vaccination_df["drop_row"] = False
     for index, row in vaccination_df.iterrows():
         cnt = int(row["60-69"] == '< 15') + \
@@ -60,20 +68,9 @@ if __name__ == '__main__':
     vaccination_df.replace(-100, np.nan, inplace=True)
     vaccination_df.reset_index(inplace=True)
 
-    # Population data
-    population_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                   'israel-city_pop.csv')
-
-    # Social-Economic Rank data
-    rank_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                  'se_index_2017.csv')
-    rank_df = pd.read_csv(rank_data_path, encoding='utf-8-sig')
+    # pre-processing socioeconomic rank data
     rank_df = rank_df.dropna()
-
-    # rank_df["Rank"] = rank_df["Rank"].astype('float').astype('int')
     rank_df["Rank"] = rank_df["Rank"].astype('float')
-
-    pop_df = pd.read_csv(population_path, encoding='utf-8-sig')
 
     # pre-processing population data
     pop_df.replace('..', -100, inplace=True)
