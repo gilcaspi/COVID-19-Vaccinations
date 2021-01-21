@@ -1,5 +1,8 @@
 # COVID-19-Vaccinations
 
+## Results 
+[Jupyter notebook with the analysis results](vaccinations.ipynb)
+
 ## Getting Started 
 1. Get from Version Control: 
     ```
@@ -25,4 +28,4 @@
         ```
         python vaccinations.py  
         ```
-5. View the analysis results saved to "results" folder 
+5. View the analysis results saved to "results" folder or in the [Jupyter notebook](vaccinations.ipynb)
