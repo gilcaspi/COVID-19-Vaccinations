@@ -52,10 +52,10 @@ if __name__ == '__main__':
     # pre-processing vaccination data
     vaccination_df["drop_row"] = False
     for index, row in vaccination_df.iterrows():
-        cnt = int(row["60-69"] == '< 15') + \
-              int(row["70-79"] == '< 15') + \
-              int(row["80-89"] == '< 15') + \
-              int(row["90+"] == '< 15')
+        cnt = int(row["60-69"] in ['< 15']) + \
+              int(row["70-79"] in ['< 15']) + \
+              int(row["80-89"] in ['< 15']) + \
+              int(row["90+"] in ['< 15'])
         if cnt > 1:
             vaccination_df.loc[index, "drop_row"] = True
     vaccination_df = vaccination_df[vaccination_df.drop_row == False]
