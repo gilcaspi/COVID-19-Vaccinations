@@ -5,16 +5,26 @@ from data import PROJECT_RAW_DATA_FOLDER
 
 class DataLoaders:
     @staticmethod
-    def get_cases_by_city() -> pd.DataFrame:
-        cities_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                        'corona_city_table_ver_0035.csv')
+    def get_cases_by_city(temporal_analysis: bool = False) -> pd.DataFrame:
+        if temporal_analysis:
+            cities_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
+                                            'corona_city_table_ver_0078.csv')
+        else:
+            cities_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
+                                            'corona_city_table_ver_0035.csv')
+
         cities_df = pd.read_csv(cities_data_path, encoding='utf-8-sig')
         return cities_df
 
     @staticmethod
-    def get_vaccinations_by_age_and_city() -> pd.DataFrame:
-        vaccination_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                             'vaccinated_by_age_2021_01_13.csv')
+    def get_vaccinations_by_age_and_city(temporal_analysis: bool = False) -> pd.DataFrame:
+        if temporal_analysis:
+            vaccination_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
+                                                 'vaccinated_city_table_ver_0033.csv')
+        else:
+            vaccination_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
+                                                 'vaccinated_by_age_2021_01_13.csv')
+
         vaccination_df = pd.read_csv(vaccination_data_path, encoding='utf-8-sig')
         return vaccination_df
 
