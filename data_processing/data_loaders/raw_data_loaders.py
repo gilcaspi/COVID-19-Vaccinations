@@ -8,10 +8,10 @@ class DataLoaders:
     def get_cases_by_city(temporal_analysis: bool = False) -> pd.DataFrame:
         if temporal_analysis:
             cities_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                            'corona_city_table_ver_0078.csv')
+                                            'corona_city_table_ver_00175.csv')
         else:
             cities_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                            'corona_city_table_ver_0035.csv')
+                                            'corona_city_table_ver_00175.csv')
 
         cities_df = pd.read_csv(cities_data_path, encoding='utf-8-sig')
         return cities_df
@@ -20,10 +20,10 @@ class DataLoaders:
     def get_vaccinations_by_age_and_city(temporal_analysis: bool = False) -> pd.DataFrame:
         if temporal_analysis:
             vaccination_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                                 'vaccinated_city_table_ver_0033.csv')
+                                                 'vaccinated_city_table_ver_00396.csv')
         else:
             vaccination_data_path = os.path.join(PROJECT_RAW_DATA_FOLDER,
-                                                 'vaccinated_by_age_2021_01_13.csv')
+                                                 'vaccinated_city_table_ver_00396.csv')
 
         vaccination_df = pd.read_csv(vaccination_data_path, encoding='utf-8-sig')
         return vaccination_df
